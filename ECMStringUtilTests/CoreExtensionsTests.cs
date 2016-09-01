@@ -12,7 +12,7 @@ namespace ECMStringUtil.Extensions.Tests
     [TestClass()]
     public class CoreExtensionsTests
     {
-         /// <summary>
+        /// <summary>
         ///A test for EncryptString
         ///</summary>
         [TestMethod()]
@@ -404,7 +404,7 @@ namespace ECMStringUtil.Extensions.Tests
         public void IsHtmlValidTest()
         {
             string s = "hello <strong>world</strong>";
-            bool expected = true; 
+            bool expected = true;
             bool actual;
             actual = CoreExtensions.IsHtmlValid(s);
             Assert.AreEqual(expected, actual);
@@ -588,7 +588,7 @@ namespace ECMStringUtil.Extensions.Tests
             string actual = CoreExtensions.RemoveBrackets(test);
             Assert.AreEqual(expected, actual);
         }
-      
+
         [TestMethod()]
         public void AddressOnStringTest()
         {
@@ -640,7 +640,7 @@ namespace ECMStringUtil.Extensions.Tests
         {
             string test = "Our Lady of La Salette Church 2600 Harvard Rd Berkley, MI 48072";
             string expected = "Our Lady of La Salette Church 2600 Harvard Rd Berkley, MI 48072";
-            var actual = CoreExtensions.StripLastWord(test,"aaa");
+            var actual = CoreExtensions.StripLastWord(test, "aaa");
 
         }
         [TestMethod()]
@@ -656,7 +656,7 @@ namespace ECMStringUtil.Extensions.Tests
         {
             string test = "Our Lady of La Salette Church 2600 Harvard Rd Berkley, MI 48072";
             string expected = "Our Lady of La Salette Church 2600 Harvard Rd Berkley, MI test";
-            var actual = CoreExtensions.StripLastWord(test, "48072","test");
+            var actual = CoreExtensions.StripLastWord(test, "48072", "test");
 
         }
         [TestMethod()]
@@ -666,6 +666,15 @@ namespace ECMStringUtil.Extensions.Tests
             string expected = string.Empty;
             var actual = CoreExtensions.StripLastWord(test, "48072", "test");
 
+        }
+
+        [TestMethod()]
+        public void ReplaceMultipleTest()
+        {
+            string test = "mult|iple ch{ars{)}*";
+            string expected = "multiple chars";
+            string actual = test.ReplaceMultiple(string.Empty, "{", "}", "|", "*",")");
+            Assert.AreEqual(expected, actual);
         }
     }
 }

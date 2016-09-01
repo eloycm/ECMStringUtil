@@ -82,6 +82,14 @@ namespace ECMStringUtil.Extensions
 
             return Result.ToString();
         } // Replace - Extension Method - Overload
+          
+        /// <summary>
+          /// replace the first appearence of search strings in text
+          /// </summary>
+          /// <param name="text"></param>
+          /// <param name="replace"></param>
+          /// <param name="search"></param>
+          /// <returns></returns>
         public static string ReplaceFirst(this string text, string search, string replace)
         {
             int pos = text.IndexOf(search);
@@ -91,7 +99,7 @@ namespace ECMStringUtil.Extensions
             return text.Substring(0, pos) + replace + text.Substring(pos + search.Length);
         }
         /// <summary>
-        /// replace the first appearence of search strings in text
+        /// replace the first appearence of multiple strings in text
         /// </summary>
         /// <param name="text"></param>
         /// <param name="replace"></param>
@@ -110,6 +118,29 @@ namespace ECMStringUtil.Extensions
 
             return text;
         }
+        /// <summary>
+        /// replaces a series of string in a string
+        /// </summary>
+        /// <param name="str"></param>
+        /// <param name="replacement"></param>
+        /// <param name="search"></param>
+        /// <returns></returns>
+        public static string ReplaceMultiple(this string str, string replacement, params string[] search)
+        {
+            var sb = new StringBuilder(str);
+            foreach(var s in search)
+            {
+                sb.Replace(s, replacement);
+            }
+            return sb.ToString();
+        }
+
+        /// <summary>
+        /// True if the target string contains any string on the inpu list
+        /// </summary>
+        /// <param name="Input"></param>
+        /// <param name="Possibilities"></param>
+        /// <returns></returns>
         public static bool ContainsAny(this string Input, List<string> Possibilities)
         {
             foreach (string s in Possibilities)
@@ -171,7 +202,7 @@ namespace ECMStringUtil.Extensions
             }
         }
         /// <summary>
-        /// cuts a string without cutting the words
+        /// cuts a string without cutting in the middle of a word
         /// </summary>
         /// <param name="text"></param>
         /// <param name="cutOffLength"></param>
@@ -260,18 +291,9 @@ namespace ECMStringUtil.Extensions
         {
             if (s == null)
                 return s;
+            s = s.ReplaceMultiple(string.Empty, "<br/>", "<br />", "<br>", "<p>", "</p>", "<p/>");
 
-            s = s.Replace("<br/>", " ");
-            s = s.Replace("<br />", " ");
-            s = s.Replace("<br>", " ");
-            s = s.Replace("</br>", string.Empty);
-            s = s.Replace("<p>", " ");
-            s = s.Replace("</p>", string.Empty);
-            s = s.Replace("<p/>", string.Empty);
-
-            return s; // todo implement a string builder replace
-
-
+            return s; 
         }
         public static bool IsHtmlValid(this string s)
         {
@@ -554,9 +576,7 @@ namespace ECMStringUtil.Extensions
 
 
         }
-
-
-
+        
         public static string BytesToString(this string byteCount)
         {
             long bt;
