@@ -720,6 +720,11 @@ namespace ECMStringUtil.Extensions
 
             return rs;
         }
+        /// <summary>
+        /// check if a string is a representation of a google array
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
         public static bool IsGoogleArray(this string s)
         {
             if (string.IsNullOrWhiteSpace(s))
@@ -732,9 +737,13 @@ namespace ECMStringUtil.Extensions
                 return false;
 
 
-            // var str = "Poor\t\tFair\t\tDon't Know\t\tGood\t\tExcellent\t\n5396\t\t12056\t\t32425\t\t30753\t\t38158\t\n";
             return true;
         }
+        /// <summary>
+        /// checks if a string contains tab delimited data
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
         public static bool IsTabDelimited(this string s)
         {
 
@@ -746,6 +755,11 @@ namespace ECMStringUtil.Extensions
             return true;
 
         }
+        /// <summary>
+        /// converts a tag delimited data into a google array
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
         public static string toGogleArray(this string s)
         {
             s = s.Replace("\t\n", "|");
@@ -795,10 +809,16 @@ namespace ECMStringUtil.Extensions
             return n;
         }
 
-        public static List<string> ToStringList(this string s)
+        /// <summary>
+        /// split a string into a list of string based on separator
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="separator"></param>
+        /// <returns></returns>
+        public static List<string> ToStringList(this string s, string separator= "\r\n")
         {
             s = s.SanitizeCarriageReturn();
-            var rs = s.Split(new string[] { Environment.NewLine }, StringSplitOptions.None).ToList();
+            var rs = s.Split(new string[] { separator }, StringSplitOptions.None).ToList();
             return rs;
         }
         public static string GetParishString(this List<string> s, string parishID)
@@ -809,14 +829,7 @@ namespace ECMStringUtil.Extensions
 
             return rs;
         }
-        public static string GetParishString(this string s, string parishID)
-        {
-            var lst = s.ToStringList();
-            string rs = lst.GetParishString(parishID);
-
-            return rs;
-
-        }
+       
         public static string SanitizeSingleQuotedString(this string s)
         {
             string rs = s.Replace("'", "&quot;");
@@ -1020,6 +1033,11 @@ namespace ECMStringUtil.Extensions
             return rs;
         }
 
+        /// <summary>
+        /// gets a set of google coordinates for a given address
+        /// </summary>
+        /// <param name="address"></param>
+        /// <returns></returns>
         public static string[] GetCoordinates(this string address)
         {
             var requestUri = string.Format("http://maps.googleapis.com/maps/api/geocode/xml?address={0}&sensor=false", Uri.EscapeDataString(address.AddressOnString()));
@@ -1046,6 +1064,11 @@ namespace ECMStringUtil.Extensions
             matchString = matchString.Replace(" ", "%20");
             return matchString;
         }
+        /// <summary>
+        /// get last word from a string
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
         public static string LastWord(this string str)
         {
             if (string.IsNullOrWhiteSpace(str))
@@ -1055,6 +1078,13 @@ namespace ECMStringUtil.Extensions
             string lastWord = parts[parts.Length - 1];
             return lastWord;
         }
+        /// <summary>
+        /// eliminates or replace last word from string if parameter are specified
+        /// </summary>
+        /// <param name="str"></param>
+        /// <param name="stripString"></param>
+        /// <param name="replacement"></param>
+        /// <returns></returns>
         public static string StripLastWord(this string str, string stripString = "", string replacement = "")
         {
             if (string.IsNullOrWhiteSpace(str))
@@ -1071,6 +1101,12 @@ namespace ECMStringUtil.Extensions
             string rs = string.Format("{0} {1}", String.Join(" ", parts, 0, parts.Length - 1), replacement);
             return rs;
         }
+        /// <summary>
+        /// delete the specified first char on a string
+        /// </summary>
+        /// <param name="str"></param>
+        /// <param name="toReplace"></param>
+        /// <returns></returns>
         public static string DeleteLeadingCharIf(this string str, string toReplace)
         {
 
