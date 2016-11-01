@@ -673,8 +673,16 @@ namespace ECMStringUtil.Extensions.Tests
         {
             string test = "mult|iple ch{ars{)}*";
             string expected = "multiple chars";
-            string actual = test.ReplaceMultiple(string.Empty, "{", "}", "|", "*",")");
+            string actual = test.ReplaceMultiple(string.Empty, "{", "}", "|", "*", ")");
             Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod()]
+        public void BytesToStringTest()
+        {
+            string test = "35674";
+            var actual = test.BytesToString();
+            Assert.AreEqual("34.8KB", actual);
         }
     }
 }

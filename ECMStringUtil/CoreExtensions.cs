@@ -309,6 +309,11 @@ namespace ECMStringUtil.Extensions
                 return false;
             }
         }
+        /// <summary>
+        /// determines if a string is a guid
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
         public static bool IsGuid(this string s)
         {
             Regex isGuid = new Regex(@"^\{?[a-fA-F\d]{8}-([a-fA-F\d]{4}-){3}[a-fA-F\d]{12}\}?$", RegexOptions.Compiled);
@@ -402,6 +407,12 @@ namespace ECMStringUtil.Extensions
             }
             return new string(array, 0, arrayIndex);
         }
+        /// <summary>
+        /// makes sure that a string starts with the prefix
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="prefix"></param>
+        /// <returns></returns>
         public static string EnsurePrefix(this string source, string prefix)
         {
             if (string.IsNullOrWhiteSpace(prefix))
@@ -415,7 +426,12 @@ namespace ECMStringUtil.Extensions
 
             return string.Format("{0}{1}", prefix, source);
         }
-        
+
+        /// <summary>
+        /// if a string starts with http.. or wwww is external
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
         public static bool IsExternalUrl(this string url)
         {
             if (url.StartsWith("http://") || url.StartsWith("www."))
