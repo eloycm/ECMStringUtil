@@ -684,5 +684,14 @@ namespace ECMStringUtil.Extensions.Tests
             var actual = test.BytesToString();
             Assert.AreEqual("34.8KB", actual);
         }
+
+        [TestMethod()]
+        public void DecodeUserPWdBasicTest()
+        {
+            string test = "Basic YWhtL3VhdF91c2VyOkFITTEwMjA=";
+            string actual = test.DecodeUserPWdBasic();
+
+            Assert.AreEqual("ahm/uat_user:AHM1020", actual);
+        }
     }
 }

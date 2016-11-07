@@ -1123,5 +1123,17 @@ namespace ECMStringUtil.Extensions
 
             return rs;
         }
+        /// <summary>
+        /// decodes a basic authentication header,
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns>username and password</returns>
+        public static string DecodeUserPWdBasic(this string s)
+        {
+            s = s.Replace("Basic ", "");
+            Encoding encoding = Encoding.GetEncoding("iso-8859-1");
+            string usernamePassword = encoding.GetString(Convert.FromBase64String(s));
+            return usernamePassword;
+        }
     }
 }
