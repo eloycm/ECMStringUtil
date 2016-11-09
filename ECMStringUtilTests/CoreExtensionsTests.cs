@@ -633,7 +633,7 @@ namespace ECMStringUtil.Extensions.Tests
             string test = "Our Lady of La Salette Church 2600 Harvard Rd Berkley, MI 48072";
             string expected = "Our Lady of La Salette Church 2600 Harvard Rd Berkley, MI";
             var actual = CoreExtensions.StripLastWord(test);
-
+            Assert.AreEqual(expected, actual);
         }
         [TestMethod()]
         public void StripLastWordTest2()
@@ -641,7 +641,7 @@ namespace ECMStringUtil.Extensions.Tests
             string test = "Our Lady of La Salette Church 2600 Harvard Rd Berkley, MI 48072";
             string expected = "Our Lady of La Salette Church 2600 Harvard Rd Berkley, MI 48072";
             var actual = CoreExtensions.StripLastWord(test, "aaa");
-
+            Assert.AreEqual(expected, actual);
         }
         [TestMethod()]
         public void StripLastWordTest3()
@@ -657,7 +657,7 @@ namespace ECMStringUtil.Extensions.Tests
             string test = "Our Lady of La Salette Church 2600 Harvard Rd Berkley, MI 48072";
             string expected = "Our Lady of La Salette Church 2600 Harvard Rd Berkley, MI test";
             var actual = CoreExtensions.StripLastWord(test, "48072", "test");
-
+            Assert.AreEqual(expected, actual);
         }
         [TestMethod()]
         public void StripLastWordTest5()
@@ -665,7 +665,7 @@ namespace ECMStringUtil.Extensions.Tests
             string test = string.Empty;
             string expected = string.Empty;
             var actual = CoreExtensions.StripLastWord(test, "48072", "test");
-
+            Assert.AreEqual(expected, actual);
         }
 
         [TestMethod()]
