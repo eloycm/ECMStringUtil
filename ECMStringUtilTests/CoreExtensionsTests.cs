@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Moq;
+using ECMStringUtil.BO;
 
 namespace ECMStringUtil.Extensions.Tests
 {
@@ -692,6 +693,83 @@ namespace ECMStringUtil.Extensions.Tests
             string actual = test.DecodeUserPWdBasic();
 
             Assert.AreEqual("ahm/uat_user:AHM1020", actual);
+        }
+        [TestMethod()]
+        public void ContainsFromTest()
+        {
+            string test = "hello world";
+            bool actual = test.ContainsFrom(9,"ld");
+
+            Assert.IsTrue(actual);
+        }
+        [TestMethod()]
+        public void ContainsFromTest2()
+        {
+            string test = "hello world";
+            bool actual = test.ContainsFrom(0, "ld");
+
+            Assert.IsFalse(actual);
+        }
+        [TestMethod()]
+        public void ContainsFromTest3()
+        {
+            string test = "hello world";
+            bool actual = test.ContainsFrom(0, "hell");
+
+            Assert.IsTrue(actual);
+        }
+        public void TrieExistTest()
+        {
+            var t = new Trie();
+            var mat = new string[] { "camello", "caballo", "caballos", "costalazo", "belleza", "bellezas" };
+            t.AddStrings(mat);
+
+            var actual = t.Exist("caballo");
+            Assert.IsTrue(actual);
+        }
+        [TestMethod()]
+        public void TrieContainsTest()
+        {
+            var t = new Trie();
+            var mat = new string[] { "camello", "caballo", "costalazo", "belleza", "bellezas" };
+            t.AddStrings(mat);
+
+            var actual = t.Contains("ca");
+            Assert.IsTrue(actual);
+        }
+        [TestMethod()]
+        public void TrieGetCurrentWordTest()
+        {
+            var t = new Trie();
+            var mat = new string[] { "camello", "caballo", "caballos", "costalazo", "belleza", "bellezas" };
+            t.AddStrings(mat);
+
+            t.Exist("caballo");
+            var actual = t.GetCurrentWord();
+            Assert.AreEqual("caballo", actual);
+        }
+        [TestMethod()]
+        public void TrieWordPositionsTest()
+        {
+            var t = new Trie();
+            var mat = new string[] { "camello", "caballo", "caballos", "costalazo", "belleza", "bellezas" };
+            t.AddStrings(mat);
+
+            t.Exist("ca");
+            var lst = t.WordsPositions();
+            Assert.AreEqual(3, lst.Count);
+        }
+        [TestMethod()]
+        public void TrieGetDescendantWordsTest()
+        {
+            var t = new Trie();
+            var mat = new string[] { "camello", "caballo", "caballos", "costalazo", "belleza", "bellezas" };
+            t.AddStrings(mat);
+
+            t.Exist("ca");
+            var lst = t.GetDescendantWords();
+            Assert.AreEqual(3, lst.Count);
+            Assert.AreEqual("camello", lst[0]);
         }
     }
 }

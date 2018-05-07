@@ -11,6 +11,7 @@ using System.Web;
 using System.Xml;
 using System.Net;
 using System.Xml.Linq;
+using ECMStringUtil.BO;
 
 namespace ECMStringUtil.Extensions
 {
@@ -1135,5 +1136,31 @@ namespace ECMStringUtil.Extensions
             string usernamePassword = encoding.GetString(Convert.FromBase64String(s));
             return usernamePassword;
         }
+
+        public static StructText InTag(this string s,string opening,string closing)
+        {
+            var rs = new StructText();
+            int nopen = s.IndexOf(opening);
+
+            if (nopen<0)
+            {
+                rs.text = s;
+                return rs;
+            }
+
+            return rs;
+        }
+        public static bool ContainsFrom(this string s,int index, string search)
+        {
+            if (index + search.Length > s.Length)
+                return false;
+
+            var substr = s.Substring(index, search.Length);
+
+            return substr == search;
+
+
+        }
+
     }
 }
