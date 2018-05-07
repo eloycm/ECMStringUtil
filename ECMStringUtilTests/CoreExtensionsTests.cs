@@ -698,7 +698,7 @@ namespace ECMStringUtil.Extensions.Tests
         public void ContainsFromTest()
         {
             string test = "hello world";
-            bool actual = test.ContainsFrom(9,"ld");
+            bool actual = test.ContainsFrom(9, "ld");
 
             Assert.IsTrue(actual);
         }
@@ -770,6 +770,34 @@ namespace ECMStringUtil.Extensions.Tests
             var lst = t.GetDescendantWords();
             Assert.AreEqual(3, lst.Count);
             Assert.AreEqual("camello", lst[0]);
+        }
+
+        [TestMethod()]
+        public void ContainsAnyTest()
+        {
+            var sinput = new string[] { "camello", "caballo", "caballos", "costalazo", "belleza", "bellezas" };
+            var s = "el caballo de napoleon";
+            var actual = s.ContainsAny(sinput);
+
+            Assert.IsTrue(actual);
+        }
+
+        [TestMethod()]
+        public void ToLowerUnbrackedGuidTest()
+        {
+            var input = "{91abf650-fb12-4104-b4fb-59db5177f500}";
+            var actual = input.ToLowerUnbrackedGuid();
+            var expected = "91abf650-fb12-4104-b4fb-59db5177f500";
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod()]
+        public void StripDomainTest()
+        {
+            var input = "sitecore\\user";
+            var actual = input.StripDomain();
+            var expected ="user";
+            Assert.AreEqual(expected, actual);
         }
     }
 }

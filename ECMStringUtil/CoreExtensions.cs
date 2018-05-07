@@ -1161,6 +1161,74 @@ namespace ECMStringUtil.Extensions
 
 
         }
+        public static void Shuffle<T>(this IList<T> list)
+        {
+            var rng = new Random();
+            int n = list.Count;
+            while (n > 1)
+            {
+                n--;
+                int k = rng.Next(n + 1);
+                T value = list[k];
+                list[k] = list[n];
+                list[n] = value;
+            }
+        }
+        public static IList<T> TakeRandom<T>(this IList<T> list, int lenght)
+        {
+            var rs = new List<T>();
+            list.Shuffle();
+            for (int i = 0; i < list.Count && i < lenght; i++)
+            {
+                rs.Add(list[i]);
+
+            }
+            return rs;
+        }
+        public static string ExtractStringFromGuid(this string guid)
+        {
+            var rs = guid.Replace("-", string.Empty);
+            rs = rs.Replace("{", string.Empty).Replace("}", string.Empty);
+            return rs;
+        }
+        public static bool ContainsAny(this string haystack, params string[] needles)
+        {
+            foreach (string needle in needles)
+            {
+                if (haystack.Contains(needle))
+                    return true;
+            }
+
+            return false;
+        }
+        public static int ToInt(this string s, int defaultvalue = 0)
+        {
+            int rs;
+            var i = int.TryParse(s, out rs);
+            if (!i)
+                return defaultvalue;
+
+            return rs;
+        }
+        /// <summary>
+        /// strips sitecore domain from users (for instance)
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns></returns>
+        public static string StripDomain(this string username)
+        {
+            int pos = username.IndexOf('\\');
+            return pos != -1 ? username.Substring(pos + 1) : username;
+        }
+        public static string ToLowerUnbrackedGuid(this string s)
+        {
+            if (string.IsNullOrEmpty(s))
+                return s;
+
+            var rs = s.ToLower().Replace("{", "").Replace("}", "");
+            return rs;
+        }
+
 
     }
 }
